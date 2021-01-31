@@ -1,0 +1,26 @@
+# 
+# Multi architecture MySQL docker image
+# Copyright 2021 Jamiel Sharief
+#
+# Note: ARM 32 not supported, this is the error you get when trying to build. 
+# linux/arm/v7 error: failed to solve: rpc error: code = Unknown desc = executor failed running
+name: Build Images
+on:
+  push:
+    branches: master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Docker Hub Login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Install buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      - name: Build Images
+        run: |
+          docker buildx build --platform linux/arm64,linux/amd64 --tag jamielsharief/php:latest --push .
