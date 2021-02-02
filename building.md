@@ -6,11 +6,11 @@ Log into docker
 $ docker login
 ```
 
-Build locally
+Build locally (ARM)
 
 ```bash
-$ docker build -t jamielsharief/php:amd64 --build-arg ARCH=amd64/ .
-$ docker push jamielsharief/php:amd64
+$ docker build -t jamielsharief/php:arm64 --build-arg ARCH=arm64/ .
+$ docker push jamielsharief/php:arm64
 ```
 
 
@@ -25,7 +25,13 @@ Create a manifest and upload.  You will need to download missing tags `docker pu
 ```bash
 $ docker manifest create \
           jamielsharief/php:latest \
+          --amend jamielsharief/php:arm64
+```
+
+```bash
+$ docker manifest create \
+          jamielsharief/php:latest \
           --amend jamielsharief/php:amd64 \
           --amend jamielsharief/php:arm64
-          docker manifest push jamielsharief/php:latest
+$ docker manifest push jamielsharief/php:latest
 ```

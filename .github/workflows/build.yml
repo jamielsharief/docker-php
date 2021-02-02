@@ -1,9 +1,7 @@
 # 
-# Multi architecture MySQL docker image
+# Multi architecture docker image
 # Copyright 2021 Jamiel Sharief
 #
-# Note: ARM 32 not supported, this is the error you get when trying to build. 
-# linux/arm/v7 error: failed to solve: rpc error: code = Unknown desc = executor failed running
 name: Build Images
 on:
   push:
